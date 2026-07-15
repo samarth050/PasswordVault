@@ -1,29 +1,41 @@
 """
-Password Vault
+===============================================================
+VaultX Enterprise
+---------------------------------------------------------------
+Author  : Samarth Sinha
+Version : 1.0.0
 
-Phase 2
+Module  : Main Entry Point
+
+Purpose :
+    Starts VaultX Enterprise.
+
+===============================================================
 """
 
-from database.db import DatabaseManager
+from __future__ import annotations
+
+import ttkbootstrap as ttk
+
+from gui.login_window import LoginWindow
 
 
-def main():
+def main() -> None:
+    """
+    Application entry point.
+    """
 
-    print()
+    app = ttk.Window(
+        title="VaultX Enterprise",
+        themename="flatly",
+        size=(600, 420),
+        resizable=(False, False),
+    )
 
-    print("---------------------------------------")
-    print(" Password Vault")
-    print("---------------------------------------")
+    LoginWindow(app)
 
-    db = DatabaseManager()
-
-    db.create_database()
-
-    print("Database initialized successfully.")
-
-    print()
+    app.mainloop()
 
 
 if __name__ == "__main__":
-
     main()
