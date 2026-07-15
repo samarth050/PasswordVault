@@ -18,6 +18,9 @@ from ttkbootstrap.constants import *
 
 from services.auth_service import AuthService
 
+from gui.create_admin_dialog import CreateAdminDialog
+
+from gui.main_window import MainWindow
 
 class LoginWindow:
 
@@ -32,6 +35,16 @@ class LoginWindow:
         self.password = ttk.StringVar()
 
         self.build_ui()
+
+        if self.auth.is_first_run():
+
+            self.master.after(
+
+                200,
+
+                lambda: CreateAdminDialog(self.master)
+
+            )        
 
     # -----------------------------------------------------
 
@@ -146,9 +159,7 @@ class LoginWindow:
 
         if self.auth.is_first_run():
 
-            self.status.configure(
-                text="No administrator account exists."
-            )
+            CreateAdminDialog(self.master)
 
             return
 
@@ -162,13 +173,11 @@ class LoginWindow:
 
         if success:
 
-            self.status.configure(
+            self.master.destroy()
 
-                text="Login successful.",
+            app = MainWindow()
 
-                bootstyle="success"
-
-            )
+            app.show()
 
         else:
 
